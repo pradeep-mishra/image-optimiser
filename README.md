@@ -1,6 +1,6 @@
 # image-optimiser
 ##### simple image optimser service for websites and cms image delivery
-based on [sharp](https://sharp.pixelplumbing.com/) library
+[sharp](https://sharp.pixelplumbing.com/) library is used for image manipulation
 
 ```bash
 npm run dev
