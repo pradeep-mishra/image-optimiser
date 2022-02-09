@@ -19,7 +19,7 @@ GET http://localhost:3010/optimize/<image_id>?filters
 
 
 ##### Check api usage with sample.jpg file 
-http://localhost:3010/optimize/sample.jpg?negative=true
+http://localhost:3010/optimize/sample.jpg?grayscale=true
 
 
 ### Following filters is supported
