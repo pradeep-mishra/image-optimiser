@@ -1,6 +1,6 @@
 # image-optimiser
 ##### simple image optimser service for websites and cms image delivery
-[sharp](https://sharp.pixelplumbing.com/) library is used for image manipulation
+
 
 ```bash
 npm run dev
@@ -102,4 +102,4 @@ http://localhost:3010/optimize/sample.jpg?grayscale=true
     - e.g. overlay=50,50,overlay.png
 
 
-for more detail on each filter please visit [sharp](https://sharp.pixelplumbing.com/api-resize) documantation
+for more detail on each filter please visit [sharp](https://sharp.pixelplumbing.com/api-resize) lib documantation
