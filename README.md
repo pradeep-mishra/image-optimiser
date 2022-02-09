@@ -1,6 +1,10 @@
 # image-optimiser
 ##### simple image optimser service for websites and cms image delivery
 
+```bash
+npm i
+```
+to install all dependencies
 
 ```bash
 npm run dev
