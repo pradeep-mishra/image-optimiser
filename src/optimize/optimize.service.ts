@@ -20,7 +20,7 @@ const fitType = {
 };
 
 async function getFile(imageId:string) :Promise<any> {
-  imageId = join(__dirname, `../samples/${imageId}.jpg`);
+  imageId = join(__dirname, `../samples/${imageId}`);
   try{
     await stat(imageId);
     return fs.createReadStream(imageId);
@@ -529,8 +529,8 @@ export class OptimizeService {
       )!;
 
       // update here to connect to overaly image source file
-      if (textMatch[3] === 'overlay') {
-        textMatch[3] = join(__dirname, `../samples/${textMatch[3]}.png`);
+      if (textMatch[3] === 'overlay.png') {
+        textMatch[3] = join(__dirname, `../samples/${textMatch[3]}`);
       }
 
       //console.log('textMatch', textMatch);

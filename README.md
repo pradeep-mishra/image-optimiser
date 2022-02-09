@@ -18,7 +18,7 @@ GET http://localhost:3010/optimize/<image_id>?filters
 
 
 ##### Check api usage with sample.jpg file 
-http://localhost:3010/optimize/sample?negative=true
+http://localhost:3010/optimize/sample.jpg?negative=true
 
 
 ### Following filters is supported
@@ -98,4 +98,4 @@ http://localhost:3010/optimize/sample?negative=true
     - e.g. text=20,20,14,@B80690,500,Hello World
 22. **overlay** = left<number>,top<number>,imageId<id of image>
     - to add image on top of image
-    - e.g. overlay=50,50,overlay
+    - e.g. overlay=50,50,overlay.png
