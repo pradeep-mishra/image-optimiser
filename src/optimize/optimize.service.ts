@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 import fs from 'fs';
+import { stat } from 'fs/promises';
 import { join } from 'path';
 import sharp from 'sharp';
-import stream from 'stream';
-import util from 'util';
-const pipeline = util.promisify(stream.pipeline);
 
 const awaitFuncUsed = {
   median: true,
@@ -21,16 +19,25 @@ const fitType = {
   outside: 'outside'
 };
 
-function getFile(imageId:string) : any {
+async function getFile(imageId:string) :Promise<any> {
   imageId = join(__dirname, `../samples/${imageId}.jpg`);
-  return fs.createReadStream(imageId);
+  try{
+    await stat(imageId);
+    return fs.createReadStream(imageId);
+  }catch(e){
+    return null;
+  }
+  
 }
 
 @Injectable()
 export class OptimizeService {
   async optimize(imageId: string, query: any, res: Response) {
     // update this getFlie function to get the file from diff source
-    const imgStream = getFile(imageId)
+    const imgStream = await getFile(imageId)
+    if(!imgStream){
+      return res.status(404).send({error: 'File not found'});
+    }
 
     if (Object.keys(query).length === 0) {
       return imgStream.pipe(res);
@@ -105,6 +112,8 @@ export class OptimizeService {
   }
 
   resize(sharpObj: sharp.Sharp, resize: string) {
+    // resize = 'width,height'
+    // resize = 'width'
     console.log('calling resize', resize);
     try {
       let resolution = resize.split(',');
@@ -137,6 +146,7 @@ export class OptimizeService {
   }
 
   crop(sharpObj: sharp.Sharp, crop: string) {
+    // crop = 'left,top,width,height'
     console.log('calling crop', crop);
     try {
       let cropStr = crop.split(',');
@@ -154,6 +164,9 @@ export class OptimizeService {
   }
 
   pad(sharpObj: sharp.Sharp, padding: string) {
+    // padding = 'left,top,right,bottom,red:green:blue:alpha'
+    // padding = 'left,top,right,bottom,@colorHex'
+
     console.log('calling padding', padding);
     try {
       let extendStr = padding.split(',');
@@ -166,16 +179,16 @@ export class OptimizeService {
           r: +isAlpha[1] > 256 ? 255 : +isAlpha[1],
           g: +isAlpha[2] > 256 ? 256 : +isAlpha[2],
           b: +isAlpha[3] > 256 ? 256 : +isAlpha[3],
-          alpha: +isAlpha[4] > 100 ? 1 : +isAlpha[4] / 100
+          alpha: +isAlpha[4] >= 100 ? 1 : +isAlpha[4] / 100
         };
       } else if (extendStr[4].startsWith('@')) {
         extendStr[4] = extendStr[4].replace('@', '#');
       }
       return sharpObj.extend({
-        top: +extendStr[0],
-        right: +extendStr[1],
-        bottom: +extendStr[2],
-        left: +extendStr[3],
+        left: +extendStr[0],
+        top: +extendStr[1],
+        right: +extendStr[2],
+        bottom: +extendStr[3],
         background: extendStr[4]
       });
     } catch (e: any) {
@@ -187,6 +200,7 @@ export class OptimizeService {
 
   trim(sharpObj: sharp.Sharp, trim: number) {
     console.log('calling trim', trim);
+    // trim = 'number'
     try {
       return sharpObj.trim(trim);
     } catch (e: any) {
@@ -198,6 +212,9 @@ export class OptimizeService {
 
   rotate(sharpObj: sharp.Sharp, rotate: string) {
     console.log('calling rotate', rotate);
+    // rotate = 'AngleDegree,BackGroundColor'
+    // rotate = 'numberInDegree,red:green:blue:alpha'
+    // rotate = 'numberInDegree,@colorHex'
     try {
       let rotateStr = rotate.split(',');
       //@ts-ignore
@@ -228,6 +245,8 @@ export class OptimizeService {
     }
   }
   flip(sharpObj: sharp.Sharp, flip: string) {
+    // flip = 'h' for horizontal
+    // flip = 'v' for vertical
     console.log('calling flip', flip);
     try {
       if (flip === 'h') {
@@ -243,6 +262,7 @@ export class OptimizeService {
   }
 
   sharpen(sharpObj: sharp.Sharp, sharpen: string) {
+    // sharpen = 'sigma,flat,jagged'
     console.log('calling sharpen', sharpen);
     try {
       let sharpenStr = sharpen.split(',');
@@ -262,6 +282,7 @@ export class OptimizeService {
   }
 
   async median(sharpObj: sharp.Sharp, median: number) {
+    // median = 'number'
     console.log('calling median', median);
     try {
       //@ts-ignore
@@ -283,6 +304,7 @@ export class OptimizeService {
   }
 
   blur(sharpObj: sharp.Sharp, blur: number) {
+    // blur = 'number' value between 0.3 and 1000 
     console.log('calling blur', blur);
     try {
       console.log('blur', blur);
@@ -295,6 +317,7 @@ export class OptimizeService {
   }
 
   negative(sharpObj: sharp.Sharp, negative: string) {
+    // negative = 'true'
     console.log('calling negative', negative);
     try {
       return sharpObj.negate();
@@ -306,6 +329,7 @@ export class OptimizeService {
   }
 
   normalize(sharpObj: sharp.Sharp, normalize: string) {
+    // normalize = 'true'
     console.log('calling  normalize', normalize);
     try {
       return sharpObj.normalize();
@@ -317,6 +341,7 @@ export class OptimizeService {
   }
 
   clahe(sharpObj: sharp.Sharp, clahe: string) {
+    // clahe = 'width,height,maxSlope'
     console.log('calling clahe', clahe);
     try {
       let claheStr = clahe.split(',');
@@ -333,6 +358,7 @@ export class OptimizeService {
     }
   }
   threshold(sharpObj: sharp.Sharp, threshold: string) {
+    // threshold = 'number upto 255'
     console.log('calling threshold', threshold);
     try {
       let thresholdStr = threshold.split(',');
@@ -349,6 +375,7 @@ export class OptimizeService {
   }
 
   modulate(sharpObj: sharp.Sharp, modulate: string) {
+    // modulate = 'brightness,saturation,hue'
     console.log('calling modulate', modulate);
     try {
       let modulateStr = modulate.split(',');
@@ -384,6 +411,7 @@ export class OptimizeService {
   }
 
   brightness(sharpObj: sharp.Sharp, brightness: number) {
+    // brightness = 'number'
     console.log('calling brightness', brightness);
     try {
       return sharpObj.modulate({
@@ -397,6 +425,7 @@ export class OptimizeService {
   }
 
   hue(sharpObj: sharp.Sharp, hue: number) {
+    // hue = 'degree'
     console.log('calling hue', hue);
     try {
       return sharpObj.modulate({
@@ -410,6 +439,7 @@ export class OptimizeService {
   }
 
   saturation(sharpObj: sharp.Sharp, saturation: number) {
+    // saturation = 'number'
     console.log('calling brightness', saturation);
     try {
       return sharpObj.modulate({
@@ -423,6 +453,7 @@ export class OptimizeService {
   }
 
   grayscale(sharpObj: sharp.Sharp, grayscale: string) {
+    // grayscale = 'true'
     console.log('calling  normalize', grayscale);
     try {
       return sharpObj.grayscale();
@@ -434,6 +465,7 @@ export class OptimizeService {
   }
 
   async text(sharpObj: sharp.Sharp, text: string) {
+    // text = 'left,top,font-size,fill,font-weight,text'
     console.log('calling text', text);
     try {
       let textMatch: Array<any> = text.match(
@@ -451,6 +483,8 @@ export class OptimizeService {
         textMatch[4] = textMatch[4].replace('@', '#');
       }
 
+      //border:1px solid blue;
+
       const svgImage = `
         <svg width="${metadata.width}" height="${metadata.height}">
           <style>
@@ -458,7 +492,6 @@ export class OptimizeService {
               fill: ${textMatch[4]}; 
               font-size: ${textMatch[3]}px; 
               font-weight: ${textMatch[5]};
-              border:1px solid blue;
               font-family: Inter, sans-serif;
             }
           </style>
@@ -488,14 +521,16 @@ export class OptimizeService {
   }
 
   async overlay(sharpObj: sharp.Sharp, text: string) {
+    // overlay = 'left,top,image'
     console.log('calling overlay', text);
     try {
       let textMatch: Array<any> = text.match(
         /^([0-9]{1,2})\,([0-9]{1,2})\,([\w\W]+)$/m
       )!;
 
-      if (textMatch[3] === 'nkm') {
-        textMatch[3] = join(__dirname, `../sample/${textMatch[3]}.png`);
+      // update here to connect to overaly image source file
+      if (textMatch[3] === 'overlay') {
+        textMatch[3] = join(__dirname, `../samples/${textMatch[3]}.png`);
       }
 
       //console.log('textMatch', textMatch);
