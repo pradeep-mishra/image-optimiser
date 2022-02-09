@@ -22,7 +22,7 @@ http://localhost:3010/optimize/sample.jpg?negative=true
 
 
 ### Following filters is supported
-1. **format** = jpg | png | webp 
+1. **format** = jpg | png | webp (default is jpg)
     - output file format
     - e.g. format=jpg
 2. **resize** = width,height
