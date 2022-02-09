@@ -1,5 +1,6 @@
 # image-optimiser
 ##### simple image optimser service for websites and cms image delivery
+based on [sharp](https://sharp.pixelplumbing.com/) library
 
 ```bash
 npm run dev
@@ -99,3 +100,6 @@ http://localhost:3010/optimize/sample.jpg?negative=true
 22. **overlay** = left<number>,top<number>,imageId<id of image>
     - to add image on top of image
     - e.g. overlay=50,50,overlay.png
+
+
+for more detail on each filter please visit [sharp](https://sharp.pixelplumbing.com/api-resize) documantation
