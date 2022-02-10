@@ -135,7 +135,7 @@ export class OptimizeService {
       }
     } catch (e: any) {
       throw new Error(
-        'Invalid value in resize modifier, ' + e.message || String(e)
+        'Invalid value in resize filter, ' + e.message || String(e)
       );
     }
   }
@@ -153,7 +153,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in crop modifier, ' + e.message || String(e)
+        'Invalid value in crop filter, ' + e.message || String(e)
       );
     }
   }
@@ -188,7 +188,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in pad modifier, ' + e.message || String(e)
+        'Invalid value in pad filter, ' + e.message || String(e)
       );
     }
   }
@@ -200,7 +200,7 @@ export class OptimizeService {
       return sharpObj.trim(trim);
     } catch (e: any) {
       throw new Error(
-        'Invalid value in crop modifier, ' + e.message || String(e)
+        'Invalid value in crop filter, ' + e.message || String(e)
       );
     }
   }
@@ -235,7 +235,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in rotate modifier, ' + e.message || String(e)
+        'Invalid value in rotate filter, ' + e.message || String(e)
       );
     }
   }
@@ -251,7 +251,7 @@ export class OptimizeService {
       }
     } catch (e: any) {
       throw new Error(
-        'Invalid value in flip modifier, ' + e.message || String(e)
+        'Invalid value in flip filter, ' + e.message || String(e)
       );
     }
   }
@@ -271,7 +271,7 @@ export class OptimizeService {
       return sharpObj.sharpen();
     } catch (e: any) {
       throw new Error(
-        'Invalid value in sharpen modifier, ' + e.message || String(e)
+        'Invalid value in sharpen filter, ' + e.message || String(e)
       );
     }
   }
@@ -293,7 +293,7 @@ export class OptimizeService {
       return sharpObj.median(median);
     } catch (e: any) {
       throw new Error(
-        'Invalid value in median modifier, ' + e.message || String(e)
+        'Invalid value in median filter, ' + e.message || String(e)
       );
     }
   }
@@ -305,7 +305,7 @@ export class OptimizeService {
       return sharpObj.blur(blur);
     } catch (e: any) {
       throw new Error(
-        'Invalid value in blur modifier, ' + e.message || String(e)
+        'Invalid value in blur filter, ' + e.message || String(e)
       );
     }
   }
@@ -317,7 +317,7 @@ export class OptimizeService {
       return sharpObj.negate();
     } catch (e: any) {
       throw new Error(
-        'Invalid value in negative modifier, ' + e.message || String(e)
+        'Invalid value in negative filter, ' + e.message || String(e)
       );
     }
   }
@@ -329,7 +329,7 @@ export class OptimizeService {
       return sharpObj.normalize();
     } catch (e: any) {
       throw new Error(
-        'Invalid value in normalize modifier, ' + e.message || String(e)
+        'Invalid value in normalize filter, ' + e.message || String(e)
       );
     }
   }
@@ -347,7 +347,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in clahe modifier, ' + e.message || String(e)
+        'Invalid value in clahe filter, ' + e.message || String(e)
       );
     }
   }
@@ -363,7 +363,7 @@ export class OptimizeService {
       return sharpObj.threshold(+thresholdStr[0], { grayscale });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in threshold modifier, ' + e.message || String(e)
+        'Invalid value in threshold filter, ' + e.message || String(e)
       );
     }
   }
@@ -399,7 +399,7 @@ export class OptimizeService {
       return sharpObj.modulate(opts);
     } catch (e: any) {
       throw new Error(
-        'Invalid value in modulate modifier, ' + e.message || String(e)
+        'Invalid value in modulate filter, ' + e.message || String(e)
       );
     }
   }
@@ -413,7 +413,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in brightness modifier, ' + e.message || String(e)
+        'Invalid value in brightness filter, ' + e.message || String(e)
       );
     }
   }
@@ -427,7 +427,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in hue modifier, ' + e.message || String(e)
+        'Invalid value in hue filter, ' + e.message || String(e)
       );
     }
   }
@@ -441,7 +441,7 @@ export class OptimizeService {
       });
     } catch (e: any) {
       throw new Error(
-        'Invalid value in saturation modifier, ' + e.message || String(e)
+        'Invalid value in saturation filter, ' + e.message || String(e)
       );
     }
   }
@@ -453,7 +453,7 @@ export class OptimizeService {
       return sharpObj.grayscale();
     } catch (e: any) {
       throw new Error(
-        'Invalid value in grayscale modifier, ' + e.message || String(e)
+        'Invalid value in grayscale filter, ' + e.message || String(e)
       );
     }
   }
@@ -507,7 +507,7 @@ export class OptimizeService {
       return sharpObj;
     } catch (e: any) {
       throw new Error(
-        'Invalid value in text modifier, ' + e.message || String(e)
+        'Invalid value in text filter, ' + e.message || String(e)
       );
     }
   }
@@ -541,18 +541,19 @@ export class OptimizeService {
       return sharpObj;
     } catch (e: any) {
       throw new Error(
-        'Invalid value in overlay modifier, ' + e.message || String(e)
+        'Invalid value in overlay filter, ' + e.message || String(e)
       );
     }
   }
 
   metadata(sharpObj: sharp.Sharp, metadata: string) {
+    // metadata = 'true'
     //console.log('calling  normalize', metadata);
     try {
       return sharpObj.withMetadata();
     } catch (e: any) {
       throw new Error(
-        'Invalid value in grayscale modifier, ' + e.message || String(e)
+        'Invalid value in metadata filter, ' + e.message || String(e)
       );
     }
   }
