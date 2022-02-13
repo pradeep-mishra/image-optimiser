@@ -13,7 +13,7 @@ enum Flip {
   vertical = 'v'
 }
 
-export class GetOptimizeDto {
+export class GetApiDto {
   @IsOptional()
   @Matches(
     /^[0-9]{1,4}$|^[0-9]{1,4}\,[0-9]{1,4}$|^[0-9]{1,4}\,[0-9]{1,4}\,[a-z]{1,10}$/,

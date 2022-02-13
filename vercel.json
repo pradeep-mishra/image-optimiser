@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "nestjs-now",
+  "name": "image-optimser",
   "builds": [
     {
       "src": "dist/main.js",

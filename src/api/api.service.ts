@@ -32,7 +32,7 @@ async function getFile(imageId:string) :Promise<any> {
 }
 
 @Injectable()
-export class OptimizeService {
+export class ApiService {
   async optimize(imageId: string, query: any, res: Response) {
     // update this getFlie function to get the file from diff source
     const imgStream = await getFile(imageId)
