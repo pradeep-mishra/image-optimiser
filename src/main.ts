@@ -34,7 +34,7 @@ async function bootstrap() {
   
 
   //@ts-ignore
-  await app.listen(configService.get('PORT') || 3000);
+  await app.listen(process.env.PORT || configService.get('PORT') || 3000);
   Logger.log(`Server running on port ${configService.get('PORT')}`, 'MainApp');
   
   return app.getHttpServer();
