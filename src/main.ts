@@ -33,5 +33,7 @@ async function bootstrap() {
   //@ts-ignore
   await app.listen(configService.get('PORT'));
   Logger.log(`Server running on port ${configService.get('PORT')}`, 'MainApp');
+
+  return app;
 }
-bootstrap();
+module.exports = bootstrap();
