@@ -1,4 +1,5 @@
 {
+  "silent" : true,
   "version": 2,
   "name": "nestjs-now",
   "builds": [
@@ -10,7 +11,7 @@
    "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/main.js"
+      "dest": "/"
     }
   ]
 }
