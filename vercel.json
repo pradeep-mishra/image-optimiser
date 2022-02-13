@@ -1,0 +1,9 @@
+{
+  "public" :true,
+  "functions" : {
+    "app/main.js":{
+      "memory" : 512,
+      "maxDuration" : 10
+    }
+  }
+}
