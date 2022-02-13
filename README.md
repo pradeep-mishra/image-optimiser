@@ -19,11 +19,11 @@ to build a production bundle
 
 
 ##### API usage
-GET http://localhost:3000/optimize/<image_id>?filters
+GET http://localhost:3000/api/<image_id>?filters
 
 
 ##### Check api usage with sample.jpg file 
-http://localhost:3000/optimize/sample.jpg?grayscale=true
+http://localhost:3000/api/sample.jpg?grayscale=true
 
 
 ### Following filters is supported
