@@ -22,6 +22,7 @@ const fitType = {
 async function getFile(imageId:string) :Promise<any> {
   imageId = join(__dirname, `../samples/${imageId}`);
   try{
+    console.log('filepath', imageId);
     await stat(imageId);
     return fs.createReadStream(imageId);
   }catch(e){
@@ -36,7 +37,7 @@ export class OptimizeService {
     // update this getFlie function to get the file from diff source
     const imgStream = await getFile(imageId)
     if(!imgStream){
-      return res.status(404).send({error: 'File not found'});
+      return res.status(404).send({error: `File ${imageId} not found`});
     }
 
     if (Object.keys(query).length === 0) {
