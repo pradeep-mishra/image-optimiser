@@ -1,3 +1,2 @@
 {
-  "rewrites": [{ "source": "/optimize/(.*)", "destination": "/api/main.js" }]
 }
