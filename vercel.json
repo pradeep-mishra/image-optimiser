@@ -1,5 +1,4 @@
 {
-  "silent" : true,
   "version": 2,
   "name": "nestjs-now",
   "builds": [
@@ -14,5 +13,5 @@
       "dest": "/"
     }
   ]
-  
+
 }
