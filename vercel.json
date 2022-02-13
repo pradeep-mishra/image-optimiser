@@ -1,4 +1,4 @@
 {
-  "public": "api/public",
+  "public": true,
   "rewrites": [{ "source": "/optimize/(.*)", "destination": "/api/main.js" }]
 }
