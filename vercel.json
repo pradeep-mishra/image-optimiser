@@ -1,7 +1,7 @@
 {
   "public" :true,
   "functions" : {
-    "app/main.js":{
+    "api/main.js":{
       "memory" : 512,
       "maxDuration" : 10
     }
