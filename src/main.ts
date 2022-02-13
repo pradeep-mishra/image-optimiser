@@ -39,4 +39,4 @@ async function bootstrap() {
   
   return app.getHttpServer();
 }
-module.exports = bootstrap();
+export default bootstrap();
