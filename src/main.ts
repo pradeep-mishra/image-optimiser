@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { json, NextFunction, Request, Response, urlencoded } from 'express';
 import responseTime from 'response-time';
 import { AppModule } from './app.module';
+import NotFoundExceptionFilter from './common/notfound';
 import validationPipe from './common/validator';
 
 async function bootstrap() {
@@ -27,11 +28,13 @@ async function bootstrap() {
   app.use(responseTime());
   const Env = configService.get('NODE_ENV') || 'local';
   app.useGlobalPipes(validationPipe);
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   app.use(json({ limit: '3mb' }));
   app.use(urlencoded({ extended: true, limit: '3mb' }));
+  
 
   //@ts-ignore
-  await app.listen(configService.get('PORT'));
+  await app.listen(configService.get('PORT') || 3000);
   Logger.log(`Server running on port ${configService.get('PORT')}`, 'MainApp');
 
   return app;
