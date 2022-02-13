@@ -1,3 +1,16 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  "version": 2,
+  "name": "nestjs-now",
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@now/node"
+    }
+  ],
+   "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
 }

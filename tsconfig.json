@@ -15,7 +15,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "outDir": "./api",
+    "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
