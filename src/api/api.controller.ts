@@ -1,7 +1,7 @@
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
-import { Response } from 'express';
-import { ApiService } from './api.service';
-import { GetApiDto } from './dto/api.dto';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common'
+import { Response } from 'express'
+import { ApiService } from './api.service'
+import { GetApiDto } from './dto/api.dto'
 
 @Controller('api')
 export class ApiController {
@@ -13,6 +13,6 @@ export class ApiController {
     @Query() query: GetApiDto,
     @Res() res: Response
   ) {
-    return this.apiService.optimize(imageId, query, res);
+    return this.apiService.optimize(imageId, query, res)
   }
 }
